@@ -6,7 +6,7 @@ from collections import Counter
 voter_id = []
 county = []
 candidate = []
-with open("PyPoll/election_data.csv", 'r') as csv_file:
+with open("PyPoll/Resources/election_data.csv", 'r') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     next(csv_reader)
     for row in csv_reader:
@@ -20,11 +20,13 @@ with open("PyPoll/election_data.csv", 'r') as csv_file:
 total_votes = len(voter_id)
 
 #A complete list of candidates who received votes
-
+#I previously confirmed there were three candidates in the CSV by printing candidate names.
+#I revised the code to run better and have all my print statements at the bottom
 candidates = list(set(candidate))
-for candidate_name in candidates:
-    
-
+candidates.sort() #had to add this cause my output for the candidate name kept changing. Google helped me fix the issue
+candidate_1 = candidates[0]
+candidate_2 = candidates[1]
+candidate_3 = candidates[2]
 
 #The total number of votes each candidate won
 counter = Counter(candidate)
@@ -59,9 +61,25 @@ print('Election Results')
 print("----------------------------")
 print(f'Total Votes: {total_votes}' )
 print("----------------------------")
-print(f'{candidate_name}: {raymon_percent}% ({raymon_votes})')
-print(f'{candidate_name}: {diana_percent}% ({diana_votes})')
-print(f'{candidate_name}: {charles_percent}% ({charles_votes})')
+print(f'{candidate_1}: {charles_percent}% ({charles_votes})')
+print(f'{candidate_2}: {diana_percent}% ({diana_votes})')
+print(f'{candidate_3}: {raymon_percent}% ({raymon_votes})')
 print("----------------------------")
 print(f'Winner: {winner}')
 print("----------------------------")
+
+# Export the results to a text file
+output_file = 'election_results.txt'
+with open(output_file, 'w') as f:
+    f.write('Election Results\n')
+    f.write("----------------------------\n")
+    f.write(f'Total Votes: {total_votes}\n')
+    f.write("----------------------------\n")
+    f.write(f'{candidate_1}: {charles_percent}% ({charles_votes})\n')
+    f.write(f'{candidate_2}: {diana_percent}% ({diana_votes})\n')
+    f.write(f'{candidate_3}: {raymon_percent}% ({raymon_votes})\n')
+    f.write("----------------------------\n")
+    f.write(f'Winner: {winner}\n')
+    f.write("----------------------------\n")
+
+print("Analysis completed. Results have been exported to 'election_results.txt'.")

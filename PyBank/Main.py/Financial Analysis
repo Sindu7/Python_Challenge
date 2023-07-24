@@ -3,7 +3,7 @@ import csv
 
 dates = []
 profits = []
-with open('PyBank/budget_data.csv', 'r') as csv_file:
+with open('PyBank/Resources/budget_data.csv', 'r') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     next(csv_reader)
     for row in csv_reader:
