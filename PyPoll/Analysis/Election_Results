@@ -1,0 +1,67 @@
+import os
+import csv
+from collections import Counter
+
+
+voter_id = []
+county = []
+candidate = []
+with open("PyPoll/election_data.csv", 'r') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    next(csv_reader)
+    for row in csv_reader:
+        voter_id.append(row[0])
+        county.append(row[1])
+        candidate.append(row[2])
+
+
+#The total number of votes cast
+
+total_votes = len(voter_id)
+
+#A complete list of candidates who received votes
+
+candidates = list(set(candidate))
+for candidate_name in candidates:
+    
+
+
+#The total number of votes each candidate won
+counter = Counter(candidate)
+raymon_votes = counter['Raymon Anthony Doane']
+
+counter = Counter(candidate)
+diana_votes = counter['Diana DeGette']
+
+counter = Counter(candidate)
+charles_votes = counter['Charles Casper Stockham']
+
+#The percentage of votes each candidate won
+
+raymon_percent = round((raymon_votes/total_votes) * 100, 3)
+diana_percent = round((diana_votes/total_votes) * 100, 3)
+charles_percent = round((charles_votes/total_votes) * 100, 3)
+
+#The winner of the election based on popular vote
+
+if raymon_votes > diana_votes and raymon_votes > charles_votes:
+    winner = 'Raymon Anthony Doane'
+elif diana_votes > raymon_votes and diana_votes > charles_votes:
+    winner = 'Diana DeGette'
+elif charles_votes > diana_votes and charles_votes > raymon_votes:
+    winner = 'Charles Casper Stockham'
+else:
+    winner = 'N/A'
+
+#Print the Final Results to the terminal
+
+print('Election Results')
+print("----------------------------")
+print(f'Total Votes: {total_votes}' )
+print("----------------------------")
+print(f'{candidate_name}: {raymon_percent}% ({raymon_votes})')
+print(f'{candidate_name}: {diana_percent}% ({diana_votes})')
+print(f'{candidate_name}: {charles_percent}% ({charles_votes})')
+print("----------------------------")
+print(f'Winner: {winner}')
+print("----------------------------")
